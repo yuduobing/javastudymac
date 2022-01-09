@@ -55,14 +55,32 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <!-- 指定该Main Class为全局的唯一入口 -->
+                    <mainClass>yun520.xyz.javastudy.JavastudyApplication</mainClass>
+                    <layout>ZIP</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.</version>
+                <configuration>
+                    <repository>lgj/webdemo</repository>
+                    <tag>1.0</tag>
+                    <buildArgs>
+                        <JAR_FILE>/target/web-1.0.jar</JAR_FILE>
+                    </buildArgs>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
