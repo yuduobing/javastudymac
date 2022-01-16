@@ -50,10 +50,12 @@
     </dependencies>
 
     <build>
+        <finalName>mystudy</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.5.0</version>
                 <configuration>
                     <!-- 指定该Main Class为全局的唯一入口 -->
                     <mainClass>yun520.xyz.javastudy.JavastudyApplication</mainClass>
@@ -67,21 +69,27 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.</version>
+                <version>1.4.13</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <repository>lgj/webdemo</repository>
-                    <tag>1.0</tag>
-                    <buildArgs>
-                        <JAR_FILE>/target/web-1.0.jar</JAR_FILE>
-                    </buildArgs>
-                </configuration>
-            </plugin>
-
-        </plugins>
-    </build>
-
-</project>
+                <buildArgs>
+                    <repository>${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <JAR_FILE>/target/${project.build.finalName}.jar</JAR_FILE>
+                </buildArgs>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+ </project>
