@@ -1,9 +1,11 @@
 //git凭证ID
  def git_auth = "6063224a-54a1-4474-a953-934de62262dd"
  //git的url地址
- def git_url = "https://gitee.com/kekesam/spring-docker- demo.git"
+ def git_url = "https://github.com/yuduobing/javastudymac"
  //镜像的版本号
- def tag = "0.0.1-SNAPSHOT" node {stage('拉取代码') { checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]]) }stage('编译 安装公共实体bean') { sh "mvn clean install -Dmaven.test.skip=true" }stage('工程编译') {
+ def tag = "0.0.1-SNAPSHOT" node {
+ stage('拉取代码') {
+ checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]]) }stage('编译 安装公共实体bean') { sh "mvn clean install -Dmaven.test.skip=true" }stage('工程编译') {
  //定义项目名称+镜像的版本号,对镜像名称进行拼接
  def imageName = "${project_name}:${tag}"
  // 编译打包开始
