@@ -14,6 +14,8 @@
  stage('工程编译') {
  //定义项目名称+镜像的版本号,对镜像名称进行拼接
  def imageName = "${project_name}:${tag}"
+  echo '镜像名'
+  echo '${imageName}'
  // 编译打包开始
   sh "mvn clean package -Dmaven.test.skip=true dockerfile:build "
   //对镜像打上标签
