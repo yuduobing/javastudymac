@@ -5,7 +5,11 @@
  //镜像的版本号
  def tag = "0.0.1-SNAPSHOT" node {
  stage('拉取代码') {
- checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]]) }stage('编译 安装公共实体bean') { sh "mvn clean install -Dmaven.test.skip=true" }stage('工程编译') {
+ echo "${env.NUGET_KEY}"
+ echo "分支"
+  echo "${branch}+${git_auth+${git_url}}"
+ checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]]) }
+ stage('编译 安装公共实体bean') { sh "mvn clean install -Dmaven.test.skip=true" }stage('工程编译') {
  //定义项目名称+镜像的版本号,对镜像名称进行拼接
  def imageName = "${project_name}:${tag}"
  // 编译打包开始
