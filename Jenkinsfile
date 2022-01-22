@@ -1,7 +1,7 @@
 //git凭证ID
  def git_auth = "3a6c6b3e-c152-4d4a-914a-da783ea64228"
  //git的url地址
- def git_url = "https://github.com/yuduobing/javastudymac.git"
+ def git_url = "http://github.com/yuduobing/javastudymac.git"
  //镜像的版本号
  def tag = "0.0.1-SNAPSHOT"
  node {
