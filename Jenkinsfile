@@ -1,13 +1,14 @@
 //git凭证ID
  def git_auth = "3a6c6b3e-c152-4d4a-914a-da783ea64228"
  //git的url地址
+
  def git_url = "http://github.com/yuduobing/javastudymac.git"
  //镜像的版本号
  def tag = "0.0.1-SNAPSHOT"
  node {
  stage('拉取代码') {
  echo 'Building....'
-checkout([$class: 'GitSCM', branches: [[name: "*/${branch}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
+checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: "${git_auth}", url: "${git_url}"]]])
   }
  stage('编译 安装公共实体bean')
  { sh "mvn clean install -Dmaven.test.skip=true" }
